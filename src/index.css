@@ -1,0 +1,25 @@
+* {
+	box-sizing: border-box;
+}
+
+@font-face {
+	font-family: "Graphik-bold"; 
+	src: url("./src/fonts/Graphik-Bold.otf") format("opentype");
+	font-weight: bold;
+}
+
+@font-face {
+	font-family: "Graphik-regular"; 
+	src: url("./src/fonts/Graphik-Regular.otf") format("opentype");
+	font-weight: normal;
+}
+
+body {
+    margin: 0;
+    font-family: "Graphik-regular", sans-serif;
+}
+
+h1 {
+	font-family: "Graphik-bold", sans-serif;
+	color: #007DFA;
+}
