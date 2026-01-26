@@ -1,86 +1,44 @@
-import { useState, useEffect } from 'react'
-import clsx from 'clsx'
+import { useState, useEffect } from "react"
+import Homepage from "./components/Homepage"
+import Questions from "./components/Questions"
 
 export default function App() {
-fetch("https://opentdb.com/api.php?amount=5&category=27&difficulty=easy&type=multiple")
-            .then(res => res.json())
-            .then(data => console.log(data.results))
 
+    const [isGameStarted, setIsGameStarted] = useState(false)
+    const [allQuesAnsw, setAllQuesAnsw] = useState([])
 
-	return (
-		<section>
-			<h1>IFAW Quiz</h1>
-			<p>
-				Test your knowledge on wildlife and share to raise awareness on
-				wildlife conservation.
-			</p>
-			<button>
-				Start Quiz
-			</button>
-		</section>
-	)
-
-}
-
-[
-    {
-        "type": "multiple",
-        "difficulty": "easy",
-        "category": "Animals",
-        "question": "The Kākāpō is a large, flightless, nocturnal parrot native to which country?",
-        "correct_answer": "New Zealand",
-        "incorrect_answers": [
-            "South Africa",
-            "Australia",
-            "Madagascar"
-        ]
-    },
-    {
-        "type": "multiple",
-        "difficulty": "easy",
-        "category": "Animals",
-        "question": "Hippocampus is the Latin name for which marine creature?",
-        "correct_answer": "Seahorse",
-        "incorrect_answers": [
-            "Dolphin",
-            "Whale",
-            "Octopus"
-        ]
-    },
-    {
-        "type": "multiple",
-        "difficulty": "easy",
-        "category": "Animals",
-        "question": "What is the name of a rabbit&#039;s abode?",
-        "correct_answer": "Burrow",
-        "incorrect_answers": [
-            "Nest",
-            "Den",
-            "Dray"
-        ]
-    },
-    {
-        "type": "multiple",
-        "difficulty": "easy",
-        "category": "Animals",
-        "question": "What is the collective noun for a group of crows?",
-        "correct_answer": "Murder",
-        "incorrect_answers": [
-            "Pack",
-            "Gaggle",
-            "Herd"
-        ]
-    },
-    {
-        "type": "multiple",
-        "difficulty": "easy",
-        "category": "Animals",
-        "question": "Which class of animals are newts members of?",
-        "correct_answer": "Amphibian",
-        "incorrect_answers": [
-            "Fish",
-            "Reptiles",
-            "Mammals"
-        ]
+    function startQuiz() {
+        setIsGameStarted(true)
+        getQuesAnsw()
     }
-]
+
+    async function getQuesAnsw() {
+        const res = await fetch("https://opentdb.com/api.php?amount=5&category=27&difficulty=easy&type=multiple")
+        const quesAnsw = await res.json()
+        setAllQuesAnsw(quesAnsw.results)
+    }
+
+    return (
+		<main>
+            {!isGameStarted? 
+            <section>
+                <h1>IFAW Quiz</h1>
+                <p>
+                    Test your knowledge on wildlife and share to raise awareness on
+                    wildlife conservation.
+                </p>
+                <button onClick={startQuiz}>
+                    Start Quiz
+                </button>
+            </section> : 
+            <section>
+                {allQuesAnsw.length > 0 && <Questions
+                    allQuesAnsw = {allQuesAnsw}
+                />}
+                
+                <button onClick={() => setIsGameStarted(false)}>Reset Quiz</button>
+            </section>
+            }
+        </main>
+	)
+}
