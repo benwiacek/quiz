@@ -1,12 +1,10 @@
 export default function Homepage(props) {
     return (
-        <section>
-            <h1>IFAW Quiz</h1>
-            <p>
-                Test your knowledge on wildlife and share to raise awareness on
-                wildlife conservation.
-            </p>
-            <button onClick={() => props.setIsGameStarted(true)}>
+        <section className="home">
+            <h1>
+                Test your knowledge on wildlife.
+            </h1>
+            <button className="brand-btn" onClick={() => props.startQuiz()}>
                 Start Quiz
             </button>
         </section>

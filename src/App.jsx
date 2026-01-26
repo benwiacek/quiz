@@ -20,24 +20,22 @@ export default function App() {
 
     return (
 		<main>
+            <header>
+                <a href="https://www.ifaw.org" target="_blank" rel="noopener noreferrer"><img className="logo" src="./src/assets/ifaw_logo_RGB.jpg" alt="IFAW logo"/></a>
+                <a href="https://www.ifaw.org/?form=join" className="brand-btn" target="_blank" rel="noopener noreferrer">Donate</a>
+            </header>
+            <img src="./src/assets/landscape.jpg" className="background-img" alt="Landscape shot of Amboseli National Park." />
             {!isGameStarted? 
-            <section>
-                <h1>IFAW Quiz</h1>
-                <p>
-                    Test your knowledge on wildlife and share to raise awareness on
-                    wildlife conservation.
-                </p>
-                <button onClick={startQuiz}>
-                    Start Quiz
-                </button>
-            </section> : 
-            <section>
-                {allQuesAnsw.length > 0 && <Questions
-                    allQuesAnsw = {allQuesAnsw}
-                />}
-                
-                <button onClick={() => setIsGameStarted(false)}>Reset Quiz</button>
-            </section>
+                <Homepage 
+                    startQuiz = {startQuiz}
+                /> : 
+                <section>
+                    {allQuesAnsw.length > 0 && 
+                        <Questions
+                            allQuesAnsw = {allQuesAnsw}
+                            setIsGameStarted={setIsGameStarted}
+                    />}
+                </section>
             }
         </main>
 	)

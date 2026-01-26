@@ -7,7 +7,7 @@ export default function Questions(props) {
         const allAnswers = [...ques.incorrect_answers.slice(0, randomIndex),
         ques.correct_answer, ...ques.incorrect_answers.slice(randomIndex)]
 
-        const answElements = allAnswers.map((answer, answIndex) => <button key={answIndex}>{answer}</button>)
+        const answElements = allAnswers.map((answer, answIndex) => <button key={answIndex}>{he.decode(answer)}</button>)
     
         return (
             <section key={quesIndex}>
@@ -18,9 +18,11 @@ export default function Questions(props) {
     })
 
     return (
-        <section>
-            {quesAnswElements}
-        </section>
+        <>
+            <section>
+                {quesAnswElements}
+            </section>
+            <button onClick={() => props.setIsGameStarted(false)}>Reset Quiz</button>
+        </>
     )
-
 }
