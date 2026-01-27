@@ -8,22 +8,25 @@ export default function App() {
 
 
     return (
-		<main>
+		<div className="page">
             <header>
                 <a href="https://www.ifaw.org" target="_blank" rel="noopener noreferrer"><img className="logo" src="./src/assets/ifaw_logo_RGB.jpg" alt="IFAW logo"/></a>
                 <a href="https://www.ifaw.org/?form=join" className="brand-btn" target="_blank" rel="noopener noreferrer">Donate</a>
             </header>
-            <img src="./src/assets/landscape.jpg" className="background-img" alt="Landscape shot of Amboseli National Park." />
-            {!isGameStarted? 
-                <Homepage 
-                    setIsGameStarted = {setIsGameStarted}
-                /> : 
-                <section>
-                    <Questions
-                        setIsGameStarted={setIsGameStarted}
-                    />
-                </section>
-            }
-        </main>
+            <main>
+                <img src="./src/assets/landscape.jpg" className="background-img" alt="Landscape shot of Amboseli National Park." />
+                {!isGameStarted? 
+                    <Homepage 
+                        setIsGameStarted = {setIsGameStarted}
+                    /> : 
+                    <section className="quiz-section">
+                        <Questions
+                            setIsGameStarted={setIsGameStarted}
+                        />
+                        <button className ="brand-btn reset-btn" onClick={() => setIsGameStarted(false)}>Reset Quiz</button>    
+                    </section>
+                }
+            </main>
+        </div>
 	)
 }

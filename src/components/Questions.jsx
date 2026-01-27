@@ -2,7 +2,7 @@ import he from "he"
 import { useState, useEffect, Fragment } from "react"
 import clsx from "clsx"
 
-export default function Questions() {
+export default function Questions(props) {
 
     const [allQuesAnsw, setAllQuesAnsw] = useState([]) // stores API data with Q&A
 
@@ -30,7 +30,7 @@ export default function Questions() {
             const decodedAnsw = he.decode(answer)
             const answKey = `${quesIndex}-${decodedAnsw}`
             const isChecked = selectedAnswers[quesIndex] === decodedAnsw
-            const answClassName = clsx("answer-btn", isChecked && "checked")
+            const answClassName = clsx("brand-btn answer-btn", isChecked && "checked")
 
             function handleChange(event) {
                 const {name, value} = event.currentTarget
@@ -76,8 +76,8 @@ export default function Questions() {
         <>
             <section className="questions">
                 {allQuesAnsw.length > 0 && quesAnswElements}
+                <button className ="brand-btn">Check Answers</button>
             </section>
-            <button className ="brand-btn" onClick={() => props.setIsGameStarted(false)}>Reset Quiz</button>
         </>
     )
 }
