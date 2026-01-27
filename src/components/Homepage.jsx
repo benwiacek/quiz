@@ -4,7 +4,7 @@ export default function Homepage(props) {
             <h1>
                 Test your knowledge on wildlife.
             </h1>
-            <button className="brand-btn" onClick={() => props.startQuiz()}>
+            <button className="brand-btn" onClick={() => props.setIsGameStarted(true)}>
                 Start Quiz
             </button>
         </section>

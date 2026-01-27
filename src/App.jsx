@@ -7,16 +7,21 @@ export default function App() {
     const [isGameStarted, setIsGameStarted] = useState(false)
     const [allQuesAnsw, setAllQuesAnsw] = useState([])
 
-    function startQuiz() {
-        setIsGameStarted(true)
-        getQuesAnsw()
-    }
-
-    async function getQuesAnsw() {
-        const res = await fetch("https://opentdb.com/api.php?amount=5&category=27&difficulty=easy&type=multiple")
-        const quesAnsw = await res.json()
-        setAllQuesAnsw(quesAnsw.results)
-    }
+    useEffect(() => {
+        fetch("https://opentdb.com/api.php?amount=5&category=27&difficulty=easy&type=multiple")
+            .then (res => res.json())
+            .then (data => {
+                const finalArray = (data.results).map((ques) => {
+                    const question = ques.question
+                    const randomIndex = Math.floor(Math.random() *(ques.incorrect_answers.length +1))
+                    const correctAnsw = ques.correct_answer
+                    const allAnswers = [...ques.incorrect_answers.slice(0, randomIndex),
+                        correctAnsw, ...ques.incorrect_answers.slice(randomIndex)]
+                    return ({question: question, answers: allAnswers, correctAnsw: correctAnsw})
+                })
+                setAllQuesAnsw(finalArray)
+            })
+    },[])
 
     return (
 		<main>
@@ -27,7 +32,7 @@ export default function App() {
             <img src="./src/assets/landscape.jpg" className="background-img" alt="Landscape shot of Amboseli National Park." />
             {!isGameStarted? 
                 <Homepage 
-                    startQuiz = {startQuiz}
+                    setIsGameStarted = {setIsGameStarted}
                 /> : 
                 <section>
                     {allQuesAnsw.length > 0 && 
