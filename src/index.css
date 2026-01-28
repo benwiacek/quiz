@@ -4,13 +4,13 @@
 
 @font-face {
 	font-family: "Graphik-bold"; 
-	src: url("./src/fonts/Graphik-Bold.otf") format("opentype");
+	src: url("./assets/fonts/Graphik-Bold.otf") format("opentype");
 	font-weight: bold;
 }
 
 @font-face {
 	font-family: "Graphik-regular"; 
-	src: url("./src/fonts/Graphik-Regular.otf") format("opentype");
+	src: url("./assets/fonts/Graphik-Regular.otf") format("opentype");
 	font-weight: normal;
 }
 
