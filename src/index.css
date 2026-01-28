@@ -126,7 +126,6 @@ section.questions {
 	border: 2px solid #007CF9;
 	background-color: white;
 	color: #007CF9;
-	font-size: 1rem;
 	transition: box-shadow 0.2s ease-in-out;
 }
 
@@ -136,7 +135,40 @@ section.questions {
 }
 
 .answer-btn:hover {
-	box-shadow: inset 0 0 0 2px #007CF9;
+	box-shadow: inset 0 0 0 2px #859db6;
+}
+
+.correctSelect {
+	background-color: #3BB891;
+	color: white;
+}
+
+.incorrectSelect {
+	background-color: #FF635A;
+	color:white;
+}
+
+.correct {
+	color: #3BB891;
+	background-color: white;
+	border: 1px solid #3BB891;
+}
+
+.incorrect {
+	color: #FF635A;
+	background-color:white;
+	border: 1px solid #FF635A;
+}
+
+.result-line {
+	font-size: 1.2rem;
+	font-weight: bold;
+	text-align: center;
+	font-family: "Graphik-bold";
+}
+
+.score {
+	color: #007CF9;
 }
 
 .reset-btn {

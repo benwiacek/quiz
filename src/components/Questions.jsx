@@ -4,7 +4,10 @@ import clsx from "clsx"
 
 export default function Questions(props) {
 
+    const [isGameOver, setIsGameOver] = useState(false)
+
     const [allQuesAnsw, setAllQuesAnsw] = useState([]) // stores API data with Q&A
+    const [allCorrectAnsw, setAllCorrectAnsw] = useState([]) // stores correct answers only
 
     useEffect(() => {
         fetch("https://opentdb.com/api.php?amount=5&category=27&difficulty=easy&type=multiple")
@@ -16,21 +19,37 @@ export default function Questions(props) {
                     const correctAnsw = ques.correct_answer
                     const allAnswers = [...ques.incorrect_answers.slice(0, randomIndex),
                         correctAnsw, ...ques.incorrect_answers.slice(randomIndex)]
+                    setAllCorrectAnsw(prevAnsw => [...prevAnsw, he.decode(correctAnsw)])
+
                     return ({question: question, answers: allAnswers, correctAnsw: correctAnsw})
                 })
                 setAllQuesAnsw(finalArray)
             })
     },[])
 
-    const[selectedAnswers, setSelectedAnswers] = useState([null, null, null, null, null]) // stores array of selected answers
-    console.log(selectedAnswers)
+    const [selectedAnswers, setSelectedAnswers] = useState([null, null, null, null, null]) // stores array of selected answers
+    const correctAnswerCount = selectedAnswers.filter(answ => allCorrectAnsw.includes(answ)).length
 
     const quesAnswElements = allQuesAnsw && (allQuesAnsw).map((ques, quesIndex) => {
         const answElements = (ques.answers).map((answer) => {
             const decodedAnsw = he.decode(answer)
             const answKey = `${quesIndex}-${decodedAnsw}`
             const isChecked = selectedAnswers[quesIndex] === decodedAnsw
-            const answClassName = clsx("brand-btn answer-btn", isChecked && "checked")
+            const isCorrect = allCorrectAnsw[quesIndex] === decodedAnsw
+            const isIncorrect = allCorrectAnsw[quesIndex] !== decodedAnsw
+            const answClassName = clsx("brand-btn",
+                isGameOver? 
+                    {
+                        correctSelect: isCorrect && isChecked,
+                        incorrectSelect : isIncorrect && isChecked,
+                        correct: isCorrect && !isChecked,
+                        "answer-btn": isIncorrect && !isChecked
+                    } :
+                    {
+                        "answer-btn": true, 
+                        "checked": isChecked
+                    }
+            )
 
             function handleChange(event) {
                 const {name, value} = event.currentTarget
@@ -72,12 +91,24 @@ export default function Questions(props) {
         )
     })
 
+    function showAnswers() {
+        setIsGameOver(true)
+    }
+
     return (
         <>
             <section className="questions">
                 {allQuesAnsw.length > 0 && quesAnswElements}
-                <button className ="brand-btn">Check Answers</button>
+                {!isGameOver && <button className ="brand-btn" onClick={showAnswers}>Check Answers</button>}
+                {isGameOver && 
+                    <>
+                        <p className="result-line">You scored <span className="score">{correctAnswerCount}</span>/{allCorrectAnsw.length}!</p>
+                        <button className="brand-btn" onClick={() => props.setIsGameStarted(false)}>Play Again</button>
+                    </>
+                }
             </section>
+            {!isGameOver && <button className ="brand-btn reset-btn" onClick={() => props.setIsGameStarted(false)}>Reset Quiz</button>}    
+
         </>
     )
 }

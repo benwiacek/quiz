@@ -21,9 +21,8 @@ export default function App() {
                     /> : 
                     <section className="quiz-section">
                         <Questions
-                            setIsGameStarted={setIsGameStarted}
+                            setIsGameStarted = {setIsGameStarted}
                         />
-                        <button className ="brand-btn reset-btn" onClick={() => setIsGameStarted(false)}>Reset Quiz</button>    
                     </section>
                 }
             </main>
