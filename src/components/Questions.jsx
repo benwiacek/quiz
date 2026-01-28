@@ -42,8 +42,8 @@ export default function Questions(props) {
                     {
                         correctSelect: isCorrect && isChecked,
                         incorrectSelect : isIncorrect && isChecked,
-                        correct: isCorrect && !isChecked,
-                        "answer-btn": isIncorrect && !isChecked
+                        "correct greyOut": isCorrect && !isChecked,
+                        "answer-btn greyOut": isIncorrect && !isChecked
                     } :
                     {
                         "answer-btn": true, 
@@ -101,10 +101,10 @@ export default function Questions(props) {
                 {allQuesAnsw.length > 0 && quesAnswElements}
                 {!isGameOver && <button className ="brand-btn" onClick={showAnswers}>Check Answers</button>}
                 {isGameOver && 
-                    <>
-                        <p className="result-line">You scored <span className="score">{correctAnswerCount}</span>/{allCorrectAnsw.length}!</p>
-                        <button className="brand-btn" onClick={() => props.setIsGameStarted(false)}>Play Again</button>
-                    </>
+                    <div className="results-section">
+                        <p >You scored <span className="score">{correctAnswerCount}</span>/{allCorrectAnsw.length}!</p>
+                        <button className="brand-btn play-again-btn" onClick={() => props.setIsGameStarted(false)}>Play Again</button>
+                    </div>
                 }
             </section>
             {!isGameOver && <button className ="brand-btn reset-btn" onClick={() => props.setIsGameStarted(false)}>Reset Quiz</button>}    
