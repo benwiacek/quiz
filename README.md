@@ -6,15 +6,21 @@ A React-based trivia game that tests your knowledge of wildlife, featuring quest
 
 ## Features
 
-- Pulls 5 random wildlife questions from Open Trivia Database API
-- Shuffles correct/incorrect answers randomly
-- Color-coded answer feedback (green = correct, red = incorrect)
+- Fetches 5 random wildlife questions from Open Trivia Database API
+- Shuffles answer order to prevent pattern recognition
+- Color-coded feedback: green (correct), red (incorrect), grey (not selected)
+- Score tracking with play again functionality
 
-## Tech Stack
+## Built with
 
-- React – Component-based UI with hooks (useState, useEffect)
-- Vite – Fast build tool and dev server
-- Open Trivia Database API – Question source
+React, JavaScript, HTML, CSS
+
+## How it works
+
+- useEffect fetches API data and randomizes answer positions
+- Radio inputs track user selections in state array
+- Conditional rendering reveals results only after "Check Answers"
+- State reset triggers new API call for fresh questions
 
 ## Acknowledgments
 
