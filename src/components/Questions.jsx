@@ -70,7 +70,7 @@ export default function Questions(props) {
                         value={decodedAnsw}
                         checked={isChecked}
                         onChange={handleChange}
-                        
+                        disabled={isGameOver} // will disable/allow radio buttons when game is over/on
                     />
                     <label 
                         className={answClassName} htmlFor={decodedAnsw}
@@ -103,7 +103,7 @@ export default function Questions(props) {
                 {isGameOver && 
                     <div className="results-section">
                         <p >You scored <span className="score">{correctAnswerCount}</span>/{allCorrectAnsw.length}!</p>
-                        <button className="brand-btn play-again-btn" onClick={() => props.setIsGameStarted(false)}>Play Again</button>
+                        <button className="brand-btn play-again-btn" onClick={() => {props.setIsGameStarted(false)}}>Play Again</button>
                     </div>
                 }
             </section>
