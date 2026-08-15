@@ -2,7 +2,9 @@
 
 A React-based trivia game that tests your knowledge of wildlife, featuring questions from the Open Trivia Database API. Built with a clean interface and integrated with IFAW branding.
 
-[**Live Demo →**](https://wildlife-quiz.netlify.app/)
+<img width="600" height="400" alt="quiz-screenshot" src="https://github.com/user-attachments/assets/865f9a33-f52e-4119-9dad-25947ba90428" />
+
+[**Live Demo**](https://wildlife-quiz.netlify.app/)
 
 ## Features
 
