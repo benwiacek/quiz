@@ -13,17 +13,19 @@ export default function Questions(props) {
         fetch("https://opentdb.com/api.php?amount=5&category=27&difficulty=easy&type=multiple")
             .then (res => res.json())
             .then (data => {
+                const allCorrectAnswersArray = []
                 const finalArray = (data.results).map((ques) => {
                     const question = ques.question
                     const randomIndex = Math.floor(Math.random() *(ques.incorrect_answers.length +1))
                     const correctAnsw = ques.correct_answer
+                    allCorrectAnswersArray.push(he.decode(correctAnsw))
                     const allAnswers = [...ques.incorrect_answers.slice(0, randomIndex),
                         correctAnsw, ...ques.incorrect_answers.slice(randomIndex)]
-                    setAllCorrectAnsw(prevAnsw => [...prevAnsw, he.decode(correctAnsw)])
 
                     return ({question: question, answers: allAnswers, correctAnsw: correctAnsw})
                 })
                 setAllQuesAnsw(finalArray)
+                setAllCorrectAnsw(allCorrectAnswersArray)
             })
     },[])
 
