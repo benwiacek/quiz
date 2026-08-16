@@ -9,10 +9,15 @@ export default function Questions(props) {
     const [allQuesAnsw, setAllQuesAnsw] = useState([]) // stores API data with Q&A
     const [allCorrectAnsw, setAllCorrectAnsw] = useState([]) // stores correct answers only
 
+    const [isFetchFailed, setIsFetchFailed] = useState(false) // to handle error during the fetch request
+    const [isLoading, setIsLoading] = useState(false) // handling loading state
+
     useEffect(() => {
-        fetch("https://opentdb.com/api.php?amount=5&category=27&difficulty=easy&type=multiple")
-            .then (res => res.json())
-            .then (data => {
+        async function fetchData() {
+            setIsLoading(true)
+            try {
+                const res = await fetch("https://opentdb.com/api.php?amount=5&category=27&difficulty=easy&type=multiple")
+                const data = await res.json()
                 const allCorrectAnswersArray = []
                 const finalArray = (data.results).map((ques) => {
                     const question = ques.question
@@ -26,7 +31,15 @@ export default function Questions(props) {
                 })
                 setAllQuesAnsw(finalArray)
                 setAllCorrectAnsw(allCorrectAnswersArray)
-            })
+            } catch (err) {
+                setIsFetchFailed(true)
+                console.log(err)
+            }
+            finally {
+                setIsLoading(false)
+            }
+        }
+        fetchData()
     },[])
 
     const [selectedAnswers, setSelectedAnswers] = useState([null, null, null, null, null]) // stores array of selected answers
@@ -97,10 +110,19 @@ export default function Questions(props) {
         setIsGameOver(true)
     }
 
+    const questionsPage = 
+        isFetchFailed?
+            <div>There has been a problem with the API. Please try reloading the page</div>
+        :
+        isLoading?
+            <div>Data is loading, please be patient.</div>
+        :
+            quesAnswElements
+
     return (
         <>
             <section className="questions">
-                {allQuesAnsw.length > 0 && quesAnswElements}
+                {questionsPage}
                 {!isGameOver && <button className ="brand-btn" onClick={showAnswers}>Check Answers</button>}
                 {isGameOver && 
                     <div className="results-section">
